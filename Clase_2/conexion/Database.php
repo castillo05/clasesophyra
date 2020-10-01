@@ -4,7 +4,7 @@
         private $dbh;
         private $query;
         function __construct(){
-            $conn="mysql:host=localhost;dbname=covid";
+            $conn="mysql:host=localhost;dbname=course";
 
             $options=array(
                 PDO::ATTR_PERSISTENT=>true,
