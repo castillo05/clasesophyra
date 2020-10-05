@@ -27,9 +27,31 @@
     if($_SERVER["REQUEST_METHOD"]=="POST"){
         if($_POST['action']==='create'){
             
+
+            $create=$User->CreateUser($_POST);
+
+            if($create==='Ok'){
+                ?>
+               
+                     <script>
+                       Swal.fire({
+                        title: 'Ingresado con exito',
+                        text: "",
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ok'
+                        }).then(() => {
+                            window.location=window.location.href
+                        })
+                    </script>
+                <?php
+               
+            }
         }else if($_POST['action']==='update'){
            
-            $update=$User->UpdateUser($_POST['id'],$_POST['name'],$_POST['lastName'],$_POST['age'],$_POST['email'],$_POST['password']);
+            echo $update=$User->UpdateUser($_POST);
            
             if($update==='Ok'){
                 ?>
@@ -62,13 +84,23 @@
 
 
 
-
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2 mx-auto mt-5">
+        <button type="button" class=" btn btn-dark" data-toggle="modal" data-target="#exampleModal_add">
+            Add User
+        </button>
+        </div>
+    </div>
+</div>
+<hr>
     <table class="table" id="table">
         <thead>
             <tr>
                 <td>Id</td>
                 <td>Name</td>
                 <td>Email</td>
+                <td>Action</td>
             </tr>
         </thead>
         <tbody>
@@ -82,6 +114,9 @@
                     </button>
                    
                     
+                    </td>
+                    <td>
+                        
                     </td>
                 </tr>
 
@@ -138,7 +173,56 @@
             <?php endforeach ?>
         </tbody>
     </table>
-   
+         <!-- Modal -->
+         <div class="modal fade" id="exampleModal_add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" >
+                    <input type="hidden" name="action" value="create">
+                   
+                        <div class="form-group">
+                                <label for="exampleFormControlInput1">Name</label>
+                                <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            
+                                <label for="exampleFormControlInput1">Email address</label>
+                                <input name="email" type="email"  class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            
+                                <label for="exampleFormControlInput1">Last Name</label>
+                                <input name="lastName" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            
+                            <label for="exampleFormControlInput1">Age</label>
+                            <input name="age" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    </div>
+
+                    <div class="form-group">
+                            
+                            <label for="exampleFormControlInput1">Password</label>
+                            <input name="password" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    </div>
+                    <hr>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                    </form>
+                </div>
+                
+                </div>
+            </div>
+            </div>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
    
    
