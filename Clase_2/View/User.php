@@ -72,6 +72,40 @@
                 <?php
                
             }
+        }else if($_POST['action'] === 'delete'){
+           
+
+          
+              
+               
+
+                $delete=$User->DeleteUser($_POST['id']);
+
+                if($delete==='Ok Delete'){
+                    ?>
+                        <script>
+                        
+                            Swal.fire({
+                                title: 'Eliminado con exito',
+                                text: "",
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Ok'
+                                }).then(() => {
+                                    window.location=window.location.href
+                                })
+                                </script>
+                    <?php
+                }
+       
+    
+    
+                      
+             
+               
+           
         }
     }
 
@@ -116,9 +150,37 @@
                     
                     </td>
                     <td>
-                        
+                        <form action="" method="post" id="delete_form_<?= $key ?>">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="id" id="<?= $value->id ?>" value="<?= $value->id ?>">
+                            <input type="button" id="delete_<?= $key ?>"  value="Delete" class="btn btn-danger">
+                        </form>
                     </td>
                 </tr>
+
+                <script>
+                   
+                        $('#delete_<?= $key ?>').click(function(){
+                            // var id= document.getElementById('<?= $value->id ?>').value;
+
+                                Swal.fire({
+                                title: 'Desea eliminar este usuario?',
+                                text: "",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Ok',
+                                cancelButtonText:'Cancelar'
+                                }).then((result) => {
+                                    if(result.isConfirmed){
+                                        $('#delete_form_<?= $key ?>').submit();
+                                    }
+                                })
+                            })
+                           
+                      
+                </script>
 
                        <!-- Modal -->
             <div class="modal fade" id="exampleModal_<?=$value->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
